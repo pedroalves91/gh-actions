@@ -1,9 +1,6 @@
 name: 01 - Building Blocks
 
-on:
-  push:
-    branches:
-      - main
+on: push
 
 jobs:
   echo-hello:
@@ -14,9 +11,9 @@ jobs:
   echo-goodbye:
     runs-on: ubuntu-latest
     steps:
-      - name: Failed step
+      - name: Successful step
         run: |
-          echo "I will fail"
-          exit 1
+          echo "I will succeed"
+          exit 0
       - name: Say goodbye
         run: echo "Goodbye!"
