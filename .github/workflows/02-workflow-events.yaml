@@ -1,7 +1,7 @@
 name: 02 - Workflow Event
 
 on:
-  - push
+  #- push
   - pull_request
   - workflow_dispatch
 
