@@ -1,0 +1,22 @@
+name: 04 - Using Actions
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # 0 - checkout code from repository
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Print folders
+        run: ls -la
+
+    # 1 - install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+    # 2 - execute tests
+      - name: Run Tests
+        run: npm run test
