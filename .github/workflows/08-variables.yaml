@@ -7,7 +7,7 @@ on:
 env:
   WORKFLOW_VAR: 'I am a workflow variable'
   OVERWRITTEN: 'I will be overwritten'
-  UNDEFINED_VAR_WITH_DEFAULT: ${{ env.UNDEFINED_VAR || 'default value' }}
+  UNDEFINED_VAR_WITH_DEFAULT: ${{ vars.UNDEFINED_VAR || 'default value' }}
 
 jobs:
   echo:
