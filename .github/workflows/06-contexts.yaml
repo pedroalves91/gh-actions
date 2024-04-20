@@ -39,5 +39,5 @@ jobs:
         env:
           MY_OVERWRITTEN_VAR: step
         run: |
-            echo "The value of the variable is ${{ env.MY_VAR }}"
+            echo "The value of the variable is ${{ env.MY_JOB_VAR }}"
             echo "The value of the overwritten variable is ${{ env.MY_OVERWRITTEN_VAR }}"
