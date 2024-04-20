@@ -11,8 +11,8 @@ on:
 
 
 env:
-  MY_JOB_VAR: "job"
-  MY_OVERWRITTEN_VAR: "job"
+  MY_JOB_VAR: job
+  MY_OVERWRITTEN_VAR: job
 
 
 run-name: 06 - Contexts | DEBUG - ${{ inputs.debug }}
