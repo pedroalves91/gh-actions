@@ -50,6 +50,7 @@ jobs:
           echo "Overwritten env: ${{ env.MY_OVERWRITTEN_VAR }}"
 
   echo-data2:
+    needs: echo-data
     runs-on: ubuntu-latest
     steps:
       - name: Print Env Variables
