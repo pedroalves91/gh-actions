@@ -4,6 +4,8 @@ on:
   - workflow_dispatch
   - push
 
+run-name: My custom workflow  run name - ${{ runner.os }}
+
 jobs:
   echo-data:
     runs-on: ubuntu-latest
