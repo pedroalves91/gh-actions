@@ -10,8 +10,8 @@ on:
 
 
 env:
-  MY_JOB_VAR: job
-  MY_OVERWRITTEN_VAR: job
+  MY_WORKFLOW_VAR: 'workflow'
+  MY_OVERWRITTEN_VAR: 'workflow'
 
 
 run-name: 06 - Contexts | DEBUG - ${{ inputs.debug }}
@@ -19,6 +19,9 @@ run-name: 06 - Contexts | DEBUG - ${{ inputs.debug }}
 jobs:
   echo-data:
     runs-on: ubuntu-latest
+    env:
+      MY_JOB_VAR: 'job'
+      MY_OVERWRITTEN_VAR: 'job'
     steps:
       - name: Display Information
         run: |
@@ -38,5 +41,18 @@ jobs:
         env:
           MY_OVERWRITTEN_VAR: step
         run: |
-            echo "The value of the variable is ${{ env.MY_JOB_VAR }}"
-            echo "The value of the overwritten variable is ${{ env.MY_OVERWRITTEN_VAR }}"
+          echo "The value of the variable is ${{ env.MY_JOB_VAR }}"
+          echo "The value of the overwritten variable is ${{ env.MY_OVERWRITTEN_VAR }}"
+
+      - name: Print Env Variables
+        run: |
+          echo "Workflow env: ${{ env.MY_WORKFLOW_VAR }}"
+          echo "Overwritten env: ${{ env.MY_OVERWRITTEN_VAR }}"
+
+  echo-data2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Env Variables
+        run: |
+          echo "Workflow env: $MY_WORKFLOW_VAR"
+          echo "Overwritten env: $MY_OVERWRITTEN_VAR"
