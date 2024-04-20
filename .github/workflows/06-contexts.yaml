@@ -20,7 +20,7 @@ jobs:
   echo-data:
     runs-on: ubuntu-latest
     env:
-      MY_JOB_VAR: 'job'
+      MY_WORKFLOW_VAR: 'job'
       MY_OVERWRITTEN_VAR: 'job'
     steps:
       - name: Display Information
@@ -41,7 +41,7 @@ jobs:
         env:
           MY_OVERWRITTEN_VAR: step
         run: |
-          echo "The value of the variable is ${{ env.MY_JOB_VAR }}"
+          echo "The value of the variable is ${{ env.MY_WORKFLOW_VAR }}"
           echo "The value of the overwritten variable is ${{ env.MY_OVERWRITTEN_VAR }}"
 
       - name: Print Env Variables
