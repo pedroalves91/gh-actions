@@ -1,7 +1,6 @@
 name: 07 - Using Expressions
 
 on:
-  push:
   workflow_dispatch:
     inputs:
       debug:
@@ -22,7 +21,7 @@ jobs:
           echo "Runner OS: ${{ runner.os }}"
 
       - name: Print when triggered from main
-        if: inputs.debug && github.ref == 'main'
+        if: inputs.debug && github.ref == 'refs/heads/main'
         run: |
           echo "I was triggered from the main branch"
 
