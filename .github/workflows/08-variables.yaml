@@ -42,7 +42,7 @@ jobs:
 
   echo-prod:
     runs-on: ubuntu-latest
-    environment: prod
+    environment: staging
     steps:
       - name: Print prod vars
         run: |
