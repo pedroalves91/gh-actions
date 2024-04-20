@@ -9,7 +9,7 @@ on:
         type: boolean
         default: false
 
-run-name: 07 - Using Expressions | DEBUG - {{ inputs.debug && 'ON' || 'OFF' }}
+run-name: 07 - Using Expressions | DEBUG - ${{ inputs.debug && 'ON' || 'OFF' }}
 
 jobs:
   echo:
