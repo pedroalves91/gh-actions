@@ -1,12 +1,15 @@
 name: 07 - Using Expressions
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       debug:
         description: 'Enable debug mode'
         type: boolean
         default: false
+
+run-name: 07 - Using Expressions | DEBUG - {{ inputs.debug && 'ON' || 'OFF' }}
 
 jobs:
   echo:
