@@ -1,12 +1,18 @@
 name: 06 - Contexts
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       debug:
         description: 'Enable debug mode'
         type: boolean
         default: false
+
+
+env:
+  MY_JOB_VAR: "job"
+  MY_OVERWRITTEN_VAR: "job"
 
 
 run-name: 06 - Contexts | DEBUG - ${{ inputs.debug }}
@@ -28,3 +34,10 @@ jobs:
       - name: Retrieve Variable
         run: |
           echo "The value of the variable is ${{ vars.MY_VAR }}"
+
+      - name: Print Env Variables
+        env:
+          MY_OVERWRITTEN_VAR: step
+        run: |
+            echo "The value of the variable is ${{ env.MY_VAR }}"
+            echo "The value of the overwritten variable is ${{ env.MY_OVERWRITTEN_VAR }}"
