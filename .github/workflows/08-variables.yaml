@@ -48,7 +48,7 @@ jobs:
         run: |
           echo "Org overwritten var: ${{ vars.OVERWRITTEN_VAR }}"
           echo "Repo var: ${{ vars.REPOSITORY_VAR }}"
-          echo "Env var: ${{ env.TARGET_VAR }}"
+          echo "Env var: ${{ vars.TARGET_VAR }}"
 
   echo-undefined:
     runs-on: ubuntu-latest
