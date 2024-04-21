@@ -1,8 +1,6 @@
 name: 02 - Workflow Event
 
 on:
-  #- push
-  - pull_request
   - workflow_dispatch
 
 jobs:
