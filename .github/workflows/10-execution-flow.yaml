@@ -21,7 +21,7 @@ jobs:
       - name: Running unit tests
         run: "Running tests..."
       - name: Failing tests
-        if: ${{ pass-unit-tests }}
+        if: ${{ inputs.pass-unit-tests }}
         run: exit 1
 
   deploy-nonprod:
