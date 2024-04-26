@@ -33,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: 14-artifacts/react-app/build
-          key: app-${{ github.sha }}
+          name: app-${{ github.sha }}
