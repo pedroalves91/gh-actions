@@ -25,6 +25,7 @@ jobs:
 
   third:
     runs-on: ubuntu-latest
+    if: ${{ always() || always() && needs.second.result == 'skipped' }}
     needs:
       - first
       - second
