@@ -5,8 +5,8 @@ on:
 
 jobs:
   backwards-compatibility:
+    name: ${{ matrix.os }}-${{ matrix.node }}
     runs-on: ${{ matrix.os }
-    name: "${{ matrix.os }}-${{ matrix.node }}"
     strategy:
       matrix:
         node: [18.x, 20.x, 21.x]
