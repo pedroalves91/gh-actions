@@ -21,7 +21,7 @@ jobs:
     if: inputs.run
     steps:
       - name: step2
-        run: echo "job 2"
+        run: exit 1
 
   third:
     runs-on: ubuntu-latest
