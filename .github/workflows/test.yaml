@@ -18,7 +18,7 @@ jobs:
   second:
     runs-on: ubuntu-latest
     needs: first
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/master' }}
     steps:
       - name: step2
         run: echo "job 2"
