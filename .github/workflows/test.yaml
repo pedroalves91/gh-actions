@@ -17,6 +17,7 @@ jobs:
 
   second:
     runs-on: ubuntu-latest
+    needs: first
     if: inputs.run
     steps:
       - name: step2
