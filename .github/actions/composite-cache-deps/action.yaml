@@ -11,6 +11,11 @@ inputs:
   working-dir:
     description: The working directory of the application
     default: '.'
+    required: false
+  target-env:
+    description: The environment to target for dependency installation
+    default: 'dev'
+    required: false
 
 runs:
   using: composite
@@ -29,6 +34,6 @@ runs:
 
     - name: Install dependencies
       if: steps.cache.outputs.cache-hit != 'true'
-      run: npm ci
+      run: ${{ inputs.target-env == 'dev' && 'npm ci' || 'npm ci --omit=dev' }}
       shell: bash
       working-directory: ${{ inputs.working-dir }}
