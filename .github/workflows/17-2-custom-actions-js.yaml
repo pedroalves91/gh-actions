@@ -19,6 +19,11 @@ on:
         default: 17-custom-actions/react-app
         description: 'The directory where the package*.json files are located'
         required: true
+      debug:
+        type: boolean
+        description: 'Enable debug mode'
+        required: false
+        default: false
 
 permissions:
   contents: write
@@ -36,3 +41,4 @@ jobs:
           target-branch: ${{ inputs.target-branch }}
           working-directory: ${{ inputs.working-directory }}
           gh-token: ${{ secrets.GITHUB_TOKEN }}
+          debug: ${{ inputs.debug }}

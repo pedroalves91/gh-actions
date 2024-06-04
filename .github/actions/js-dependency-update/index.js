@@ -2,8 +2,26 @@ const core = require('@actions/core');
 const exec = require('@actions/exec');
 const github = require('@actions/github');
 
+const setupGit = async () => {
+    await exec.exec('git config --global user.name "gh-automation"');
+    await exec.exec('git config --global user.email "gh-automation@email.com"');
+}
 const validateBranchName = ({ branchName }) => /^[a-zA-Z0-9_\-.\/]+$/.test(branchName);
 const validateDirectoryName = ({ workingDir }) => /^[a-zA-Z0-9_\-\/]+$/.test(workingDir);
+
+const setupLogger = ({ debug } = { debug: false }) => ({
+    debug: (message) => {
+        if (debug) {
+            core.info(message);
+        }
+    },
+    info: (message) => {
+        core.info(message);
+    },
+    error: (message) => {
+        core.error(message);
+    }
+});
 
 async function run() {
     const baseBranch = core.getInput('base-branch', { required: true });
@@ -11,8 +29,11 @@ async function run() {
     const ghToken = core.getInput('gh-token', { required: true });
     const workingDir = core.getInput('working-directory', { required: true });
     const debug = core.getBooleanInput('debug');
+    const logger = setupLogger({ debug });
 
     core.setSecret(ghToken);
+
+    logger.debug('Validating inputs');
 
     if (!validateBranchName({ branchName: baseBranch })) {
         core.setFailed(`Base branch name is invalid: ${baseBranch}`);
@@ -29,17 +50,17 @@ async function run() {
         return;
     }
 
-    core.info(`Base branch: ${baseBranch}`);
-    core.info(`Target branch: ${targetBranch}`);
-    core.info(`Working directory: ${workingDir}`);
+    logger.debug(`Base branch: ${baseBranch}`);
+    logger.debug(`Target branch: ${targetBranch}`);
+    logger.debug(`Working directory: ${workingDir}`);
 
+    logger.debug('Checking for updates');
     await exec.exec('npm update', [], { cwd: workingDir });
 
     const gitStatus = await exec.getExecOutput('git status -s package*.json', [], { cwd: workingDir });
     if (gitStatus.stdout.length > 0) {
-        core.info('There are updates available');
-        await exec.exec('git config --global user.name "gh-automation"');
-        await exec.exec('git config --global user.email "gh-automation@email.com"');
+        logger.debug('There are updates available');
+        await setupGit();
         await exec.exec(`git checkout -b ${targetBranch}`, [], { cwd: workingDir });
         await exec.exec(`git add package.json package-lock.json`, [], { cwd: workingDir });
         await exec.exec(`git commit -m "update deps"`, [], { cwd: workingDir });
@@ -48,6 +69,7 @@ async function run() {
         const octokit = github.getOctokit(ghToken);
 
         try {
+            logger.debug('Creating PR');
             await octokit.rest.pulls.create({
                 owner: github.context.repo.owner,
                 repo: github.context.repo.repo,
@@ -57,12 +79,12 @@ async function run() {
                 body: 'This PR was automatically created by the GitHub Action `js-dependency-update`',
             });
         } catch (e) {
-            core.error('Failed to create PR');
+            logger.error('Failed to create PR');
             core.setFailed(e.message);
-            core.error(e);
+            logger.error(e);
         }
     } else {
-        core.info('No updates available');
+        logger.info('No updates available');
     }
 }
 
