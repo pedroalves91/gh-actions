@@ -1,3 +1,3 @@
 Github actions training
 
-Check PR part 2
+Check PR part 1
