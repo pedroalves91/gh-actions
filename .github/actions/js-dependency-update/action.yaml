@@ -21,6 +21,10 @@ inputs:
     required: false
     default: 'false'
 
+outputs:
+  updates-available:
+    description: 'Whether updates are available or not'
+
 runs:
   using: node20
   main: index.js

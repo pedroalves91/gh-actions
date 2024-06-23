@@ -58,8 +58,13 @@ async function run() {
     await exec.exec('npm update', [], { cwd: workingDir });
 
     const gitStatus = await exec.getExecOutput('git status -s package*.json', [], { cwd: workingDir });
+
+    let updatesAvailable = false;
     if (gitStatus.stdout.length > 0) {
+        updatesAvailable = true;
+
         logger.debug('There are updates available');
+
         await setupGit();
         await exec.exec(`git checkout -b ${targetBranch}`, [], { cwd: workingDir });
         await exec.exec(`git add package.json package-lock.json`, [], { cwd: workingDir });
@@ -86,6 +91,8 @@ async function run() {
     } else {
         logger.info('No updates available');
     }
+    logger.debug('Setting updates-available output to: ' + updatesAvailable);
+    core.setOutput('updates-available', updatesAvailable);
 }
 
 run();
